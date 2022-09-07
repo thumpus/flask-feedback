@@ -1,0 +1,25 @@
+{% extends 'template.html' %}
+{% block title %}{{user.username}}'s Profile{% endblock %}
+
+{% block content %}
+
+<h1>{{user.username}} ({{user.first_name}} {{user.last_name}})</h1>
+<p>{{user.email}}</p>
+{% if user.username == session['username'] %}
+<form action="/users/{{user.username}}/feedback/add" method='GET'><input type="submit" value="Add Feedback"></form>
+<form action="/logout" method='GET'><input type="submit" value="Log Out"></form>
+<form action="/users/{{user.username}}/delete" method='POST'><input type="submit" value="Delete User"></form>
+{% endif %}
+<h3>Feedback:</h3>
+<ul>
+{% for f in feedback %}
+<li><b>{{f.title}}</b>:
+    {% if user.username == session['username'] %}
+    <br>
+    <form action="/feedback/{{f.id}}/edit" method='GET'><input type="submit" value="Edit Feedback"></form>
+    <form action="/feedback/{{f.id}}/delete" method='POST'><input type="submit" value="Delete Feedback"></form>
+    {% endif %}
+    <p>{{f.content}}</p></li>
+{% endfor %}
+</ul>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends 'template.html' %}
+{% block title %}Login Form{% endblock %}
+
+{% block content %}
+
+<h1>Sign In</h1>
+
+<form id="login-form" method="POST">
+    {{ form.hidden_tag() }}
+    {% for field in form if field.widget.input_type != 'hidden' %}
+        <p>
+            {{field.label}}
+            {{field}}
+
+            {% for error in field.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+        </p>
+    {% endfor %}
+    <button type="submit">Sign In</button>
+    <a href = '/logout'>Sign Out</a>
+</form>
+
+{% endblock %}

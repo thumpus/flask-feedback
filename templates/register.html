@@ -1,0 +1,27 @@
+{% extends 'template.html' %}
+{% block title %}Registration Form{% endblock %}
+
+{% block content %}
+
+<h1>Sign Up</h1>
+<a href = '/login'>Sign In</a>
+
+<form id="registration-form" method="POST">
+    {{ form.hidden_tag() }}
+    {% for field in form if field.widget.input_type != 'hidden' %}
+        <p>
+            {{field.label}}
+            {{field}}
+
+            {% for error in field.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+        </p>
+    {% endfor %}
+    <button type="submit">Register</button>
+</form>
+
+
+
+
+{% endblock %}
